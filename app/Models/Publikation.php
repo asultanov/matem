@@ -21,6 +21,8 @@ class Publikation extends Model
     'UDC' => 'array',
     'annotation' => 'array',
     'keywords' => 'array',
+    'FTfiles' => 'array',
+    'RBfiles' => 'array',
   ];
 
 

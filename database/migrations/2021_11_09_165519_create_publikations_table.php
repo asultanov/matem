@@ -25,6 +25,8 @@ class CreatePublikationsTable extends Migration
       $table->text('UDC');
       $table->text('annotation');
       $table->text('keywords');
+      $table->text('FTfiles');
+      $table->text('RBfiles');
       $table->string('MSC');
       $table->string('date');
       //$table->timestamps();
