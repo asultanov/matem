@@ -75,8 +75,8 @@ class downFile extends Command
 
 //    $arr['FTfiles']
 //    $arr['RBfiles']
-
     foreach ($pubs as $pub) {
+      $arr = array();
       foreach ($pub->fullText as $file) {
         $arr['FTfiles'][] = $this->dw_file($file['href'], $pub->count);
       }
@@ -86,7 +86,7 @@ class downFile extends Command
       }
       $pub->update($arr);
 
-      echo $pub->count.PHP_EOL;
+      echo $pub->count . PHP_EOL;
 
     }
   }
