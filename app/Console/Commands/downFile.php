@@ -12,14 +12,14 @@ class downFile extends Command
    *
    * @var string
    */
-  protected $signature = 'command:name';
+  protected $signature = 'command:dwfiles';
 
   /**
    * The console command description.
    *
    * @var string
    */
-  protected $description = 'Command description';
+  protected $description = 'Download files';
 
   /**
    * Create a new command instance.
@@ -85,7 +85,9 @@ class downFile extends Command
         $arr['RBfiles'][] = $this->dw_file($file['href'], $pub->count);
       }
       $pub->update($arr);
-      echo "ок";
+
+      echo $pub->count;
+      
     }
   }
 }
