@@ -19,7 +19,6 @@ class Publikation extends Model
     'refBoocks' => 'array',
     'langs' => 'array',
     'UDC' => 'array',
-    'annotation' => 'array',
     'keywords' => 'array',
     'FTfiles' => 'array',
     'RBfiles' => 'array',

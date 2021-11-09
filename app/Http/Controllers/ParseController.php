@@ -12,57 +12,81 @@ use simplehtmldom\HtmlWeb;
 class ParseController extends Controller
 {
 
-  public function getExt($mime)
-  {
-    $arr = [
-      'application/pdf' => '.pdf',
-      'text/html' => '.html',
-      'text/htm' => '.htm',
-    ];
-
-    return $arr[$mime];
-  }
-
-  public function dw_file($href, $count)
-  {
-    $url = 'http://www.mathnet.ru' . $href;
-    $file_name = $count . '_' . rand(100, 999);
-    $file = file_get_contents($url);
-    $finfo = new \finfo(FILEINFO_MIME_TYPE);
-    $a = $finfo->buffer($file);
-    if ($file) {
-      if (file_exists('files/' . $file_name . $this->getExt($a))) {
-        return $file_name;
-      } else {
-        if (file_put_contents('files/' . $file_name . $this->getExt($a), $file)) {
-          return $file_name . $this->getExt($a);
-        } else {
-          return 'none.tmp';
-        }
-      }
-    } else {
-      return 'none.tmp';
-    }
-  }
-
-
   public function index()
   {
     $pubs = Publikation::get();
 
-//    $arr['FTfiles']
-//    $arr['RBfiles']
+//    foreach ($pubs as $pub) {
+//      $arr = array();
+//      foreach ($pub->authors as $author) {
+//        $arr['authors'][] = [
+//          "title" => mb_substr($author['title'], 5, 1) ? mb_substr($author['title'], 0, 3) . mb_substr($author['title'], 7, strlen($author['title'])) : $author['title'],
+//          "href" => $author['href']
+//        ];
+//      }
+//      $pub->update($arr);
+//    }
+
+//    dd($arr);
+
+
+    $site = "http://matem.zkamen.com/files/";
+    echo "<table border='1'>";
+    ?>
+    <tr>
+      <td>Оригинал</td>
+      <td>Название</td>
+      <td>Аннотация</td>
+      <td>Ключевые<br>слова</td>
+      <td>MSC</td>
+      <td>Авторы</td>
+      <td>Организации</td>
+      <td>УДК</td>
+      <td>Полный текст</td>
+      <td>Список<br>литературы</td>
+    </tr>
+
+    <?php
 
     foreach ($pubs as $pub) {
-      foreach ($pub->fullText as $file) {
-        $arr['FTfiles'][] = $this->dw_file($file['href'], $pub->count);
-      }
+      echo "<tr><td><a href=\"http://mi.mathnet.ru/ufa$pub->count\">$pub->count</a></td>";
+      echo "<td>$pub->name</td>";
+      echo "<td>$pub->annotation</td>";
+      echo "<td>$pub->keywords</td>";
+      echo "<td>$pub->MSC</td><td>";
 
-      foreach ($pub->refBoocks as $file) {
-        $arr['RBfiles'][] = $this->dw_file($file['href'], $pub->count);
+      foreach ($pub->authors as $author) {
+        echo "<div>" . $author['title'] . "</div>";
       }
-      $pub->update($arr);
+      echo "</td><td>";
+      foreach ($pub->organisation as $organisation) {
+        echo "<div>" . $organisation['title'] . "</div>";
+      }
+      echo "</td><td>";
+      foreach ($pub->UDC as $udc) {
+        echo "<div>" . $udc . "</div>";
+      }
+      echo "</td>";
+
+      echo "</td><td>";
+      foreach ($pub->FTfiles as $FTfiles) {
+        echo '<div> <a href="' . $site . $FTfiles . '">' . $FTfiles . "</a></div>";
+      }
+      echo "</td>";
+
+      echo "</td><td>";
+      if (is_array($pub->RBfiles)) {
+        foreach ($pub->RBfiles as $RBfiles) {
+          echo '<div> <a href="' . $site . $RBfiles . '">' . $RBfiles . "</a></div>";
+        }
+      }
+      echo "</td>";
+
+
+      echo "</tr>";
     }
+    echo "</table>";
+
   }
 
   public function stepOne()
