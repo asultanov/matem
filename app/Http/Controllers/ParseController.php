@@ -53,15 +53,16 @@ class ParseController extends Controller
 //    $arr['FTfiles']
 //    $arr['RBfiles']
 
-    foreach ($pubs as $pub)
+    foreach ($pubs as $pub) {
       foreach ($pub->fullText as $file) {
         $arr['FTfiles'][] = $this->dw_file($file['href'], $pub->count);
       }
 
-    foreach ($pub->refBoocks as $file) {
-      $arr['RBfiles'][] = $this->dw_file($file['href'], $pub->count);
+      foreach ($pub->refBoocks as $file) {
+        $arr['RBfiles'][] = $this->dw_file($file['href'], $pub->count);
+      }
+      $pub->update($arr);
     }
-    $pub->update($arr);
   }
 
   public function stepOne()
