@@ -86,8 +86,8 @@ class downFile extends Command
       }
       $pub->update($arr);
 
-      echo $pub->count;
-      
+      echo $pub->count.PHP_EOL;
+
     }
   }
 }
