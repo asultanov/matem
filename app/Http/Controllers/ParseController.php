@@ -175,24 +175,24 @@ class ParseController extends Controller
       }
       echo "</td><td>";
       foreach ($pub->organisation as $organisation) {
-        echo "<div>" . $organisation['title'] . "</div>";
+        echo  $organisation['title'] . "<br>";
       }
       echo "</td><td>";
       foreach ($pub->UDC as $udc) {
-        echo "<div>" . $udc . "</div>";
+        echo  $udc . "<br>";
       }
       echo "</td>";
 
       echo "</td><td>";
       foreach ($pub->FTfiles as $FTfiles) {
-        echo '<div> <a href="' . $site . $FTfiles . '">' . $FTfiles . "</a></div>";
+        echo '<a href="' . $site . $FTfiles . '">' . $FTfiles . "</a><br>";
       }
       echo "</td>";
 
       echo "</td><td>";
       if (is_array($pub->RBfiles)) {
         foreach ($pub->RBfiles as $RBfiles) {
-          echo '<div> <a href="' . $site . $RBfiles . '">' . $RBfiles . "</a></div>";
+          echo '<a href="' . $site . $RBfiles . '">' . $RBfiles . "</a><br>";
         }
       }
       echo "</td>";
