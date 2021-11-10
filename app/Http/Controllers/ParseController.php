@@ -171,7 +171,7 @@ class ParseController extends Controller
       echo "<td>$pub->MSC</td><td>";
 
       foreach ($pub->authors as $author) {
-        echo "<div>" . $author['title'] . "</div>";
+        echo $author['title'] . "<br>";
       }
       echo "</td><td>";
       foreach ($pub->organisation as $organisation) {
