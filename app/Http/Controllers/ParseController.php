@@ -122,28 +122,70 @@ class ParseController extends Controller
 
   public function index()
   {
+
+
     $pubs = Publikation::get();
 
-//    dd($authors->toarray());
-////    foreach ($pubs as $pub) {
-////      $arr = array();
-////      foreach ($pub->authors as $author) {
-////        //$this->sname($author['title']) . ' / ';
-////        $arr = [
-////          "pub_id" => $pub->id,
-////          "title" => $author['title'],
-////          "href" => $author['href']
-////        ];
-//////        dd($arr);
-////      Author::create($arr);
-////      }
-////      //$pub->update($arr);
-////    }
-//
-//    dd();
-////    dd($arr);
+
+//    foreach ($pubs as $pub) {
+//      $arr = array();
+//      foreach ($pub->aut as $aut) {
+//        $arr['authors'][] = [
+//          "title" => $aut->title,
+//          "href" => $aut->href,
+//        ];
+//      }
+//      $pub->update($arr);
+//    }
+
+//    foreach ($pubs as $pub) {
+//      $pub->update(['keywords' => $pub->keywords2]);
+//    }
+//    dd($pubs->toarray());
+
+    ?>
+
+    <!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+          inlineMath: [ ['$','$'] ],
+          displayMath: [ ['$$','$$'] ],
+          processEscapes: true
+          },
+      "HTML-CSS": { availableFonts: ["TeX"]
+      },
+
+      TeX: {
+      	equationNumbers: { autoNumber: "AMS" },
+      	extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
+      	Macros: {
+      		}
+      }
+
+      });
+
+
+
+      </script>
+
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config==TeX-AMS-MML_HTMLorMML"></script>
+
+
+      <title>Document</title>
+    </head>
+    <body>
+
+    <?php
     $site = "http://matem.zkamen.com/files/";
     echo "<table border='1'>";
     ?>
@@ -164,7 +206,7 @@ class ParseController extends Controller
     <?php
 
     foreach ($pubs as $pub) {
-      echo "<tr><td><a href=\"http://mi.mathnet.ru/ufa$pub->count\">$pub->count</a></td>";
+      echo "<tr><td><a target=\"_blank\" href=\"http://mi.mathnet.ru/ufa$pub->count\">$pub->count</a></td>";
       echo "<td>$pub->name</td>";
       echo "<td>$pub->annotation</td>";
       echo "<td>$pub->keywords</td>";
@@ -175,11 +217,11 @@ class ParseController extends Controller
       }
       echo "</td><td>";
       foreach ($pub->organisation as $organisation) {
-        echo  $organisation['title'] . "<br>";
+        echo $organisation['title'] . "<br>";
       }
       echo "</td><td>";
       foreach ($pub->UDC as $udc) {
-        echo  $udc . "<br>";
+        echo $udc . "<br>";
       }
       echo "</td>";
 
@@ -202,7 +244,19 @@ class ParseController extends Controller
     }
     echo "</table>";
 
+
+    ?>
+
+
+    </body>
+    </html>
+
+
+    <?php
+
+
   }
+
 
   public function stepOne()
   {

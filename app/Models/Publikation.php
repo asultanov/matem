@@ -19,10 +19,14 @@ class Publikation extends Model
     'refBoocks' => 'array',
     'langs' => 'array',
     'UDC' => 'array',
-    'keywords' => 'array',
     'FTfiles' => 'array',
     'RBfiles' => 'array',
   ];
 
+
+  public function aut()
+  {
+    return $this->hasMany(Author::class, 'pub_id', 'id');
+  }
 
 }
